@@ -12,7 +12,7 @@ const { div, ul, li, a, h1, h2, input, form, textarea, button } =
  */
 
 
-var ContactForm = React.createClass({
+var ContactForm = React.createFactory(React.createClass({
   propTypes: {
     value: React.PropTypes.object.isRequired,
     onChange: React.PropTypes.func.isRequired,
@@ -64,10 +64,10 @@ var ContactForm = React.createClass({
       )
     );
   },
-});
+}));
 
 
-var ContactItem = React.createClass({
+var ContactItem = React.createFactory(React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
     email: React.PropTypes.string.isRequired,
@@ -83,7 +83,7 @@ var ContactItem = React.createClass({
       )
     );
   },
-});
+}));
 
 
 var ContactView = React.createClass({
@@ -97,13 +97,13 @@ var ContactView = React.createClass({
   render: function() {
     var contactItemElements = this.props.contacts
       .filter(function(contact) { return contact.email; })
-      .map(function(contact) { return React.createElement(ContactItem, contact); });
+      .map(function(contact) { return ContactItem(contact); });
 
     return (
       div({className: 'ContactView'},
         h1({className: 'ContactView-title'}, "Contacts"),
         ul({className: 'ContactView-list'}, contactItemElements),
-        React.createElement(ContactForm, {
+        ContactForm({
           value: this.props.newContact,
           onChange: this.props.onNewContactChange,
           onSubmit: this.props.onNewContactSubmit,
