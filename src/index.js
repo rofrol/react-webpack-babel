@@ -86,7 +86,7 @@ var ContactItem = React.createFactory(React.createClass({
 }));
 
 
-var ContactView = React.createClass({
+var ContactView = React.createFactory(React.createClass({
   propTypes: {
     contacts: React.PropTypes.array.isRequired,
     newContact: React.PropTypes.object.isRequired,
@@ -111,7 +111,7 @@ var ContactView = React.createClass({
       )
     );
   },
-});
+}));
 
 
 /*
@@ -167,7 +167,7 @@ function setState(changes) {
   Object.assign(state, changes);
 
   ReactDOM.render(
-    React.createElement(ContactView, Object.assign({}, state, {
+    ContactView(Object.assign({}, state, {
       onNewContactChange: updateNewContact,
       onNewContactSubmit: submitNewContact,
     })),
