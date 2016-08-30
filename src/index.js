@@ -2,6 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+const { div, ul, li, a, h1, h2, input, form, textarea, button } =
+  require('hyperscript-helpers')(React.createElement); //  Notice the (React.createElement)
 
 // from http://jamesknelson.com/learn-raw-react-ridiculously-simple-forms/
 
@@ -38,27 +40,27 @@ var ContactForm = React.createClass({
     var errors = this.props.value.errors || {};
 
     return (
-      React.createElement('form', {onSubmit: this.onSubmit, className: 'ContactForm', noValidate: true},
-        React.createElement('input', {
+      form({onSubmit: this.onSubmit, className: 'ContactForm', noValidate: true},
+        input({
           type: 'text',
           className: errors.name && 'ContactForm-error',
           placeholder: 'Name (required)',
           value: this.props.value.name,
           onChange: this.onNameChange,
         }),
-        React.createElement('input', {
+        input({
           type: 'email',
           className: errors.email && 'ContactForm-error',
           placeholder: 'Email (required)',
           value: this.props.value.email,
           onChange: this.onEmailChange,
         }),
-        React.createElement('textarea', {
+        textarea({
           placeholder: 'Description',
           value: this.props.value.description,
           onChange: this.onDescriptionChange,
         }),
-        React.createElement('button', {type: 'submit'}, "Add Contact")
+        button({type: 'submit'}, "Add Contact")
       )
     );
   },
@@ -74,10 +76,10 @@ var ContactItem = React.createClass({
 
   render: function() {
     return (
-      React.createElement('li', {className: 'ContactItem'},
-        React.createElement('h2', {className: 'ContactItem-name'}, this.props.name),
-        React.createElement('a', {className: 'ContactItem-email', href: 'mailto:'+this.props.email}, this.props.email),
-        React.createElement('div', {className: 'ContactItem-description'}, this.props.description)
+      li({className: 'ContactItem'},
+        h2({className: 'ContactItem-name'}, this.props.name),
+        a({className: 'ContactItem-email', href: 'mailto:'+this.props.email}, this.props.email),
+        div({className: 'ContactItem-description'}, this.props.description)
       )
     );
   },
@@ -98,9 +100,9 @@ var ContactView = React.createClass({
       .map(function(contact) { return React.createElement(ContactItem, contact); });
 
     return (
-      React.createElement('div', {className: 'ContactView'},
-        React.createElement('h1', {className: 'ContactView-title'}, "Contacts"),
-        React.createElement('ul', {className: 'ContactView-list'}, contactItemElements),
+      div({className: 'ContactView'},
+        h1({className: 'ContactView-title'}, "Contacts"),
+        ul({className: 'ContactView-list'}, contactItemElements),
         React.createElement(ContactForm, {
           value: this.props.newContact,
           onChange: this.props.onNewContactChange,
